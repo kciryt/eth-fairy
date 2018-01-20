@@ -1,0 +1,29 @@
+{
+  "name": "eth-fairy",
+  "version": "1.0.0",
+  "description": "api service for ethereum",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kciryt/eth-fairy.git"
+  },
+  "keywords": [
+    "ethereum",
+    "api",
+    "balance"
+  ],
+  "author": "tyrick",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kciryt/eth-fairy/issues"
+  },
+  "homepage": "https://github.com/kciryt/eth-fairy#readme",
+  "dependencies": {
+    "express": "4.16.2",
+    "request": "2.83.0",
+    "request-promise": "4.2.2"
+  }
+}
