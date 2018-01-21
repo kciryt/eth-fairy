@@ -44,7 +44,11 @@ function formatResultRPC(method, json) {
     case rpcCalls.getBalance:
       if(json.hasOwnProperty("result")) {
         var nc = new NumberConverter(NumberConverter.HEXADECIMAL, NumberConverter.DECIMAL);
-        var balanceWei = nc.convert(json.result);
+        var balanceHex = json.result; 
+        if(balanceHex.startsWith('0x') {
+          balanceHex = balanceHex.substr(2);
+        }
+        var balanceWei = nc.convert(balanceHex);
         var result = {};
         result.balance = balanceWei / 1e18;
         result.balanceWei = balanceWei;  
