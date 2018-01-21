@@ -1,11 +1,20 @@
 const express = require('express');
 const rp = require('request-promise');
 const os = require("os");
+var NumberConverter = require("number-converter").NumberConverter;
 
 if(os.type() != "Linux") {
   console.log("eth-fairy is currently only available for linux");
   process.exit(1);
 }
+
+const rpcCalls = {
+  getBalance: "eth_getBalance"
+}
+
+process.on('unhandledRejection', error => {
+  console.log('unhandledRejection', error.message);
+});
 
 var app = express();
 
@@ -21,17 +30,41 @@ app.get('/address/:addr', async (req, res, next) => {
     const addr = req.params.addr;
     console.log("/address/" + addr);
 
-    const ret = await getBalance(addr); 
-    res.send(ret);
+    const ret = await getBalanceRPC(addr); 
+    if(ret != null) {
+      ret = formatResultRPC(rpcCalls.getBalance, ret);
+      res.send(ret);
+    } else {
+      res.send({});
+    }
 })
 
-function getBalance(address) {
+function formatResultRPC(method, json) {
+  switch(method) {
+    case rpcCalls.getBalance:
+      if(json.hasOwnProperty("result")) {
+        var nc = new NumberConverter(NumberConverter.HEXADECIMAL, NumberConverter.DECIMAL);
+        var balanceWei = nc.convert(json.result);
+        var result = {};
+        result.balance = balanceWei / 1e18;
+        result.balanceWei = balanceWei;  
+        return result;
+      } else {
+        console.log('Error: Unexpected RPC return.  ' + json);
+        return null;
+      }
+    default:
+      return null;
+  }
+}
+
+function getBalanceRPC(address) {
   var options = {
     method: 'POST',
     uri: 'http://localhost:8545',
     body: {
       jsonrpc: "2.0",
-      method: "eth_getBalance",
+      method: rpcCalls.getBalance,
       params: [
         address,
         "latest"
@@ -44,18 +77,14 @@ function getBalance(address) {
     json: true
   };
 
-  try {
-    return rp(options)
-      .then(function (body) {
-        console.log(body)
-        return body
-      })
-      .catch(function (err) {
-       console.log(err)
-      });
-  } catch (e) {
-    next(e)
-  }
+  return rp(options)
+    .then(function (body) {
+      console.log(body);
+      return body;
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
 }
 
 app.listen(3000, function () {
