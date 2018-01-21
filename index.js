@@ -47,8 +47,10 @@ function formatResultRPC(method, json) {
         var balanceHex = json.result; 
         if(balanceHex.startsWith('0x')) {
           balanceHex = balanceHex.substr(2);
+          console.log('Trimming 0x from hex: ' + balanceHex);
         }
         var balanceWei = nc.convert(balanceHex);
+        console.log('Converted ' + balanceHex + ' to ' + balanceWei);
         var result = {};
         result.balance = balanceWei / 1e18;
         result.balanceWei = balanceWei;  
