@@ -30,7 +30,7 @@ app.get('/address/:addr', async (req, res, next) => {
     const addr = req.params.addr;
     console.log("/address/" + addr);
 
-    const ret = await getBalanceRPC(addr); 
+    var ret = await getBalanceRPC(addr); 
     if(ret != null) {
       ret = formatResultRPC(rpcCalls.getBalance, ret);
       res.send(ret);
