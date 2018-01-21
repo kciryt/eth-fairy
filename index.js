@@ -1,11 +1,20 @@
-var express = require('express');
-var rp = require('request-promise');
+const express = require('express');
+const rp = require('request-promise');
+const os = require("os");
+
+if(os.type() != "Linux") {
+  console.log("eth-fairy is currently only available for linux");
+  process.exit(1);
+}
 
 var app = express();
 
 app.get('/', function (req, res) {
-  var address = req.param('address'); 
-  res.send('Welcome to eth-fairy.');
+  var response = '<html><title>Eth Fairy</title><body>Welcome to eth-fairy<br/><br/>';
+  response += 'APIs<br/>';
+  response += '/address/:addr<br/>';
+  response += '</body></html>';
+  res.send(response);
 });
 
 app.get('/address/:addr', async (req, res, next) => {
