@@ -49,7 +49,7 @@ function formatResultRPC(method, json) {
           balanceHex = balanceHex.substr(2);
           console.log('Trimming 0x from hex: ' + balanceHex);
         }
-        var balanceWei = nc.convert(balanceHex);
+        var balanceWei = nc.convert(balanceHex.toUpperCase());
         console.log('Converted ' + balanceHex + ' to ' + balanceWei);
         var result = {};
         result.balance = balanceWei / 1e18;
