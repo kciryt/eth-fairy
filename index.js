@@ -45,7 +45,7 @@ function formatResultRPC(method, json) {
       if(json.hasOwnProperty("result")) {
         var nc = new NumberConverter(NumberConverter.HEXADECIMAL, NumberConverter.DECIMAL);
         var balanceHex = json.result; 
-        if(balanceHex.startsWith('0x') {
+        if(balanceHex.startsWith('0x')) {
           balanceHex = balanceHex.substr(2);
         }
         var balanceWei = nc.convert(balanceHex);
