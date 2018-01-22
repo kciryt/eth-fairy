@@ -15,7 +15,7 @@ Above
 
 A list of additions and improvements:
 
-* [ ] Fix decimal limit, perhaps with BigDecimal 
+* [x] Fix decimal limit, perhaps with BigDecimal 
 * [ ] Add config and refactor hardcoded values 
 * [ ] Add more endpoints 
 * [ ] Add tls/ssl support 
