@@ -51,7 +51,7 @@ function formatResultRPC(method, json) {
 
         var bigWeiBalance = new bigDec(balanceWei);
         var ethPrecision = new bigDec("1000000000000000000");
-        var bigBalance = bigBalance.divide(ethPrecision, 18, BigDecimal.ROUND_UNNECESSARY);
+        var bigBalance = bigWeiBalance.divide(ethPrecision, 18, BigDecimal.ROUND_UNNECESSARY);
 
         result.balance = bigBalance;
         result.balanceWei = balanceWei.toString();  
