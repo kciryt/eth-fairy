@@ -54,6 +54,7 @@ function formatResultRPC(method, json) {
         var result = {};
         result.balance = balanceWei / 1e18;
         result.balanceWei = balanceWei;  
+        result.balanceHex = balanceHex;
         return result;
       } else {
         console.log('Error: Unexpected RPC return.  ' + json);
