@@ -1,7 +1,8 @@
 const express = require('express');
 const rp = require('request-promise');
 const os = require("os");
-var NumberConverter = require("number-converter").NumberConverter;
+var format = require("biguint-format");
+var bigDec = require("big-decimal");
 
 if(os.type() != "Linux") {
   console.log("eth-fairy is currently only available for linux");
@@ -45,15 +46,16 @@ function formatResultRPC(method, json) {
       if(json.hasOwnProperty("result")) {
         var nc = new NumberConverter(NumberConverter.HEXADECIMAL, NumberConverter.DECIMAL);
         var balanceHex = json.result; 
-        if(balanceHex.startsWith('0x')) {
-          balanceHex = balanceHex.substr(2);
-          console.log('Trimming 0x from hex: ' + balanceHex);
-        }
-        var balanceWei = nc.convert(balanceHex.toUpperCase());
+        var balanceWei = format(balanceHex, 'dec');
         console.log('Converted ' + balanceHex + ' to ' + balanceWei);
         var result = {};
-        result.balance = balanceWei / 1e18;
-        result.balanceWei = balanceWei;  
+
+        var bigWeiBalance = new bigDec(balanceWei);
+        var ethPrecision = new bigDec("1000000000000000000");
+        var bigBalance = bigBalance.divide(ethPrecision, 18, BigDecimal.ROUND_UNNECESSARY);
+
+        result.balance = bigBalance;
+        result.balanceWei = balanceWei.toString();  
         result.balanceHex = balanceHex;
         return result;
       } else {

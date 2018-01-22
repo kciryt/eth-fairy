@@ -25,6 +25,7 @@
     "express": "4.16.2",
     "request": "2.83.0",
     "request-promise": "4.2.2",
-    "number-converter": "1.2.1"
+    "biguint-format": "1.0.0",
+    "big-decimal": "1.0.2"
   }
 }
