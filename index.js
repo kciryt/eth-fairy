@@ -44,7 +44,6 @@ function formatResultRPC(method, json) {
   switch(method) {
     case rpcCalls.getBalance:
       if(json.hasOwnProperty("result")) {
-        var nc = new NumberConverter(NumberConverter.HEXADECIMAL, NumberConverter.DECIMAL);
         var balanceHex = json.result; 
         var balanceWei = format(balanceHex, 'dec');
         console.log('Converted ' + balanceHex + ' to ' + balanceWei);
