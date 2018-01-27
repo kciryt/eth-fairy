@@ -22,14 +22,14 @@ var app = express();
 app.get('/', function (req, res) {
   var response = '<html><title>Eth Fairy</title><body>Welcome to eth-fairy<br/><br/>';
   response += 'APIs<br/>';
-  response += '/address/:addr<br/>';
+  response += '/eth-fairy/address/:addr<br/>';
   response += '</body></html>';
   res.send(response);
 });
 
-app.get('/address/:addr', async (req, res, next) => {
+app.get('/eth-fairy/address/:addr', async (req, res, next) => {
     const addr = req.params.addr;
-    console.log("/address/" + addr);
+    console.log("/eth-fairy/address/" + addr);
 
     var ret = await getBalanceRPC(addr); 
     if(ret != null) {
