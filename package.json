@@ -22,10 +22,10 @@
   },
   "homepage": "https://github.com/kciryt/eth-fairy#readme",
   "dependencies": {
-    "express": "4.16.2",
-    "request": "2.83.0",
-    "request-promise": "4.2.2",
+    "big-decimal": "1.0.2",
     "biguint-format": "1.0.0",
-    "big-decimal": "1.0.2"
+    "express": "4.16.2",
+    "request": "^2.87.0",
+    "request-promise": "4.2.2"
   }
 }
